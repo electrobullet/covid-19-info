@@ -26,7 +26,7 @@ function getCovidTable(data, attrs = {}) {
     }
 
     let count = info.length - 1;
-    info[count]["date"] = "Yesterday";
+    info[count]["date"] = "Last";
 
     if (attrs.hasOwnProperty("lines")) {
         count -= attrs.lines;
