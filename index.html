@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/zero.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>COVID-19-INFO</title>
+</head>
+
+<body>
+    <h2>Global COVID-19 info</h2>
+    <table id="covid-table-global"></table>
+
+    <h2>COVID-19 in Russia</h2>
+    <table id="covid-table-ru"></table>
+
+    <button
+        onclick='covidApi("timeseries?iso2=RU&onlyCountries=true", getCovidTable, attrs = { "tableName": "covid-table-ru"})'>
+        Show more
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
