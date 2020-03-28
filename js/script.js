@@ -1,5 +1,29 @@
 covidApi("brief", getCovidTable, attrs = { "tableName": "covid-table-global" })
+covidApi("brief", GlobalStatsTable, attrs = { "tableName": "covid-stats-global" })
 covidApi("timeseries?iso2=RU&onlyCountries=true", getCovidTable, attrs = { "tableName": "covid-table-ru", "lines": 5 })
+
+function getGlobalStats(data) {
+    let death = data.deaths / (data.deaths + data.recovered);
+    let recovery = data.recovered / (data.deaths + data.recovered);
+
+    return { "death": death, "recovery": recovery };
+}
+
+function GlobalStatsTable(data, attrs = {}) {
+    let stats = getGlobalStats(data);
+
+    let html =
+        `<tr>
+            <th>Death</th>
+            <th>Recovery</th>
+        </tr>
+        <tr>
+            <td>${(stats.death * 100).toFixed(2) + '%'}</td>
+            <td>${(stats.recovery * 100).toFixed(2) + '%'}</td>
+        </tr>`;
+
+    document.getElementById(attrs.tableName).innerHTML = html;
+}
 
 function getCovidTable(data, attrs = {}) {
     let info = [];

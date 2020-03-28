@@ -30,7 +30,13 @@ tr:nth-child(2n) {
 }
 
 h2{
-    font-weight: 700;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 30px 0 10px;
+}
+
+h3{
+    font-weight: 600;
     margin: 30px 0 10px;
 }
 
@@ -47,6 +53,10 @@ button{
 @media screen and (max-width:500px){
     body, button{
         font-size: 15px;
+    }
+
+    h2{
+        font-size: 20px;
     }
 
     table{
