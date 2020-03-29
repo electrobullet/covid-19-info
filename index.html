@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="RU">
 
 <head>
     <meta charset="UTF-8">
@@ -12,21 +12,21 @@
 <body>
     <div id="main">
 
-        <h2>Global</h2>
-        <table id="covid-table-global"></table>
+        <h2>Мир</h2>
+        <h3>Статистика</h3>
+        <table id="covid-global-stats"></table>
+        <h3>Сводка</h3>
+        <table id="covid-global-table"></table>
 
-        <h3>Death | Recovery</h3>
-        <table id="covid-stats-global"></table>
 
-        <h2>Russia</h2>
-        <table id="covid-table-ru"></table>
+        <h2>Россия</h2>
+        <h3>Статистика</h3>
+        <table id="covid-ru-stats"></table>
+        <h3>Сводка</h3>
+        <table id="covid-ru-table"></table>
+        <button onclick="setCountryTable('RU','covid-ru-table')">Show more</button>
 
-        <button
-            onclick='covidApi("timeseries?iso2=RU&onlyCountries=true", getCovidTable, attrs = { "tableName": "covid-table-ru"})'>
-            Show more
-        </button>
     </div>
-
     <script src="js/script.js"></script>
 </body>
 

@@ -15,6 +15,7 @@ table{
     width: 800px;
     border-collapse: collapse;
     border: 1px solid #38444d;
+    margin: 20px 0;
 }
 
 th, td {
@@ -35,12 +36,11 @@ tr:nth-child(2n) {
 h2{
     font-size: 25px;
     font-weight: 600;
-    margin: 30px 0 10px;
+    margin: 20px;
 }
 
 h3{
     font-weight: 600;
-    margin: 30px 0 10px;
     color: #1da1f2;
 }
 
@@ -48,7 +48,7 @@ button{
     color: #1da1f2;
     font-size: 20px;
     padding: 5px 10px;
-    margin: 20px;
+    margin:  0 0 20px;
     border-radius: 20px;
     border: 2px solid #1da1f2;
     background-color: rgba(0, 0, 0, 0);
