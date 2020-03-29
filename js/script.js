@@ -1,18 +1,19 @@
 setGlobalTable("covid-global-table");
 setGlobalStatsTable("covid-global-stats");
+setAllCountriesTable("covid-all-countries")
 setCountryStatsTable("RU", "covid-ru-stats");
 setCountryTable("RU", "covid-ru-table", 5);
 
 async function setGlobalTable(tableId) {
-    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief`
+    let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief";
     let response = await fetch(url);
     data = await response.json();
 
     let html =
         `<tr>
-            <th>Подтверждено</th>
-            <th>Умерли</th>
-            <th>Выздоровели</th>
+            <th>Confirmed</th>
+            <th>Deaths</th>
+            <th>Recovered</th>
         </tr>
         <tr>
             <td>${data.confirmed}</td>
@@ -30,8 +31,8 @@ async function setGlobalStatsTable(tableId) {
 
     let html =
         `<tr>
-            <th>Смерть</th>
-            <th>Выздоровление</th>
+            <th>Death</th>
+            <th>Recovery</th>
         </tr>
         <tr>
             <td>${(data.deaths / (data.deaths + data.recovered) * 100).toFixed(2) + '%'}</td>
@@ -40,6 +41,35 @@ async function setGlobalStatsTable(tableId) {
 
     document.getElementById(tableId).innerHTML = html;
 }
+
+async function setAllCountriesTable(tableId) {
+    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?onlyCountries=true`
+    let response = await fetch(url);
+    data = await response.json();
+
+    let html =
+        `<tr>
+            <th>Country</th>
+            <th>Confirmed</th>
+            <th>Deaths</th>
+            <th>Recovered</th>
+        </tr>`
+
+    data.forEach(element => {
+        html +=
+            `<tr>
+                <td>${element.countryregion}</td>
+                <td>${element.confirmed}</td>
+                <td>${element.deaths}</td>
+                <td>${element.recovered}</td>
+            </tr>`
+    });
+
+    document.getElementById(tableId).innerHTML = html;
+    addSorting(tableId);
+}
+
+
 
 async function setCountryTable(iso2, tableId, lines = 0) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
@@ -50,10 +80,10 @@ async function setCountryTable(iso2, tableId, lines = 0) {
 
     let html =
         `<tr>
-            <th>Дата</th>
-            <th>Подтверждено</th>
-            <th>Умерли</th>
-            <th>Выздоровели</th>
+            <th>Date</th>
+            <th>Confirmed</th>
+            <th>Deaths</th>
+            <th>Recovered</th>
         </tr>`
 
     for (const date in data[0].timeseries) {
@@ -98,8 +128,8 @@ async function setCountryStatsTable(iso2, tableId) {
 
     let html =
         `<tr>
-            <th>Смерть</th>
-            <th>Выздоровление</th>
+            <th>Death</th>
+            <th>Recovery</th>
         </tr>
         <tr>
             <td>${(data.deaths / (data.deaths + data.recovered) * 100).toFixed(2) + '%'}</td>
@@ -117,4 +147,19 @@ function convertDate(date) {
         }
     }
     return `${temp[1]}.${temp[0]}.${temp[2]}`
+}
+
+function addSorting(tableId) {
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+    document.getElementById(tableId).querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => table.appendChild(tr));
+    }), th.style.cursor = "pointer"));
 }
