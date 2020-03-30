@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="RU">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,21 +10,47 @@
 </head>
 
 <body>
-    <div id="main">
+    <div id="disclaimer" class="content">
+        <p>Автор <span>не несёт ответственности</span>
+            за размещённую на ресурсе информацию
+            и <span>не предоставляет никаких гарантий</span>.
 
-        <h2>Мир</h2>
-        <h3>Статистика</h3>
-        <table id="covid-global-stats"></table>
-        <h3>Сводка</h3>
-        <table id="covid-global-table"></table>
+            Все данные берутся из публичного источника
+            посредством Web API.
+
+            <span>ИСТОЧНИК:</span>
+            https://github.com/Laeyoung/COVID-19-API
+
+            <span>Сайт является лишь агрегатором</span>,
+            предназначенным для отображения данных,
+            полученных из источника указанного выше.
+
+            <span>Не поддавайтесь панике.</span>
+            Соблюдайте необходимые меры предосторожности.
+            Берегите себя и своих близких.</p>
+        <button onclick="hideExclude('main')">Продолжить</button>
+    </div>
+
+    <div id="main" class="content">
+
+        <h2>Russia</h2>
+        <h3>Summary</h3>
+        <table id="ru-summary"></table>
+        <h3>Stats</h3>
+        <table id="ru-stats"></table>
+        <h3>Calendar</h3>
+        <table id="ru-calendar"></table>
+        <button onclick="countryCalendarTable('ru-calendar', 'RU')">Show more</button>
 
 
-        <h2>Россия</h2>
-        <h3>Статистика</h3>
-        <table id="covid-ru-stats"></table>
-        <h3>Сводка</h3>
-        <table id="covid-ru-table"></table>
-        <button onclick="setCountryTable('RU','covid-ru-table')">Show more</button>
+        <h2>Global</h2>
+        <h3>Summary</h3>
+        <table id="global-summary"></table>
+        <h3>Stats</h3>
+        <table id="global-stats"></table>
+        <h3>Summary for all countries</h3>
+        <p style="color:#8899a6; padding: 10px 0 0;">(click on the header to sort)</p>
+        <table id="all-countries-summary"></table>
 
     </div>
 
