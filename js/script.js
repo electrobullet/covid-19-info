@@ -1,10 +1,11 @@
-setGlobalTable("covid-global-table");
-setGlobalStatsTable("covid-global-stats");
-setAllCountriesTable("covid-all-countries")
-setCountryStatsTable("RU", "covid-ru-stats");
-setCountryTable("RU", "covid-ru-table", 5);
+countrySummaryTable("ru-summary", "RU");
+countryStatsTable("ru-stats", "RU");
+countryCalendarTable("ru-calendar", "RU", 5);
+globalSummaryTable("global-summary");
+globalStatsTable("global-stats");
+allCountriesTable("all-countries-summary");
 
-async function setGlobalTable(tableId) {
+async function globalSummaryTable(tableId) {
     let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief";
     let response = await fetch(url);
     data = await response.json();
@@ -24,7 +25,29 @@ async function setGlobalTable(tableId) {
     document.getElementById(tableId).innerHTML = html;
 }
 
-async function setGlobalStatsTable(tableId) {
+async function countrySummaryTable(tableId, iso2) {
+    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=${iso2}&onlyCountries=true`;
+    let response = await fetch(url);
+    data = await response.json();
+
+    data = data[0];
+
+    let html =
+        `<tr>
+            <th>Confirmed</th>
+            <th>Deaths</th>
+            <th>Recovered</th>
+        </tr>
+        <tr>
+            <td>${data.confirmed}</td>
+            <td>${data.deaths}</td>
+            <td>${data.recovered}</td>
+        </tr>`
+
+    document.getElementById(tableId).innerHTML = html;
+}
+
+async function globalStatsTable(tableId) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief`
     let response = await fetch(url);
     data = await response.json();
@@ -42,7 +65,7 @@ async function setGlobalStatsTable(tableId) {
     document.getElementById(tableId).innerHTML = html;
 }
 
-async function setAllCountriesTable(tableId) {
+async function allCountriesTable(tableId) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?onlyCountries=true`
     let response = await fetch(url);
     data = await response.json();
@@ -71,7 +94,7 @@ async function setAllCountriesTable(tableId) {
 
 
 
-async function setCountryTable(iso2, tableId, lines = 0) {
+async function countryCalendarTable(tableId, iso2, lines = 0) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
     let response = await fetch(url);
     data = await response.json();
@@ -118,7 +141,7 @@ async function setCountryTable(iso2, tableId, lines = 0) {
     }
 }
 
-async function setCountryStatsTable(iso2, tableId) {
+async function countryStatsTable(tableId, iso2) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
     let response = await fetch(url);
     data = await response.json();
