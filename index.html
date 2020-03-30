@@ -10,7 +10,28 @@
 </head>
 
 <body>
-    <div id="main">
+    <div id="disclaimer" class="content">
+        <p>Автор <span>не несёт ответственности</span>
+            за размещённую на ресурсе информацию
+            и <span>не предоставляет никаких гарантий</span>.
+
+            Все данные берутся из публичного источника
+            посредством Web API.
+
+            <span>ИСТОЧНИК:</span>
+            https://github.com/Laeyoung/COVID-19-API
+
+            <span>Сайт является лишь агрегатором</span>,
+            предназначенным для отображения данных,
+            полученных из источника указанного выше.
+
+            <span>Не поддавайтесь панике.</span>
+            Соблюдайте необходимые меры предосторожности.
+            Берегите себя и своих близких.</p>
+        <button onclick="hideExclude('main')">Продолжить</button>
+    </div>
+
+    <div id="main" class="content">
 
         <h2>Russia</h2>
         <h3>Summary</h3>
@@ -28,7 +49,7 @@
         <h3>Stats</h3>
         <table id="global-stats"></table>
         <h3>Summary for all countries</h3>
-        <p style="color:#8899a6; padding: 10px;">(click on the header to sort)</p>
+        <p style="color:#8899a6; padding: 10px 0 0;">(click on the header to sort)</p>
         <table id="all-countries-summary"></table>
 
     </div>

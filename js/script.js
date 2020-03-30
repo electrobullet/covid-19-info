@@ -1,3 +1,4 @@
+hideExclude("disclaimer");
 countrySummaryTable("ru-summary", "RU");
 countryStatsTable("ru-stats", "RU");
 countryCalendarTable("ru-calendar", "RU", 5);
@@ -185,4 +186,23 @@ function addSorting(tableId) {
             .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
             .forEach(tr => table.appendChild(tr));
     }), th.style.cursor = "pointer"));
+}
+
+function hideExclude(id) {
+    let tags = document.getElementsByClassName("content");
+
+    for (const tag in tags) {
+        if (tags.hasOwnProperty(tag)) {
+            const element = tags[tag];
+            if (element.id != id) {
+                document.getElementById(element.id).style.display = "none";
+            }
+        }
+    }
+    if (id == "main") {
+        document.getElementById(id).style.display = "flex";
+    }
+    else {
+        document.getElementById(id).style.display = "block";
+    }
 }

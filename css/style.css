@@ -5,6 +5,20 @@ body{
     background-color: #15202b;
 }
 
+#disclaimer{
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: center;
+    white-space: pre-line; 
+}
+
+#disclaimer span{
+    text-transform: uppercase;
+    color: #1da1f2;
+}
+
 #main{
     display: flex;
     flex-direction: column;
@@ -63,7 +77,7 @@ button{
         font-size: 20px;
     }
 
-    table{
+    table, #disclaimer{
         width: 100%;
     }
 
