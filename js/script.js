@@ -9,7 +9,7 @@ allCountriesTable("all-countries-summary");
 async function globalSummaryTable(tableId) {
     let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief";
     let response = await fetch(url);
-    data = await response.json();
+    let data = await response.json();
 
     let html =
         `<tr>
@@ -29,7 +29,7 @@ async function globalSummaryTable(tableId) {
 async function countrySummaryTable(tableId, iso2) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=${iso2}&onlyCountries=true`;
     let response = await fetch(url);
-    data = await response.json();
+    let data = await response.json();
 
     data = data[0];
 
@@ -51,7 +51,7 @@ async function countrySummaryTable(tableId, iso2) {
 async function globalStatsTable(tableId) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief`
     let response = await fetch(url);
-    data = await response.json();
+    let data = await response.json();
 
     let html =
         `<tr>
@@ -69,7 +69,7 @@ async function globalStatsTable(tableId) {
 async function allCountriesTable(tableId) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?onlyCountries=true`
     let response = await fetch(url);
-    data = await response.json();
+    let data = await response.json();
 
     let html =
         `<tr>
@@ -98,7 +98,7 @@ async function allCountriesTable(tableId) {
 async function countryCalendarTable(tableId, iso2, lines = 0) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
     let response = await fetch(url);
-    data = await response.json();
+    let data = await response.json();
 
     info = [];
 
@@ -145,7 +145,7 @@ async function countryCalendarTable(tableId, iso2, lines = 0) {
 async function countryStatsTable(tableId, iso2) {
     let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
     let response = await fetch(url);
-    data = await response.json();
+    let data = await response.json();
 
     let keys = Object.keys(data[0].timeseries);
     data = data[0].timeseries[keys[keys.length - 1]];
