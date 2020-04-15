@@ -1,4 +1,4 @@
-hideExclude("disclaimer");
+hideExclude("disclaimer", "content", "block");
 countrySummaryTable("ru-summary", "RU");
 countryStatsTable("ru-stats", "RU");
 countryCalendarTable("ru-calendar", "RU", 5);
@@ -7,9 +7,7 @@ globalStatsTable("global-stats");
 allCountriesTable("all-countries-summary");
 
 async function globalSummaryTable(tableId) {
-    let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief";
-    let response = await fetch(url);
-    let data = await response.json();
+    let data = await covidApi(`brief`);
 
     let html =
         `<tr>
@@ -27,9 +25,7 @@ async function globalSummaryTable(tableId) {
 }
 
 async function countrySummaryTable(tableId, iso2) {
-    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=${iso2}&onlyCountries=true`;
-    let response = await fetch(url);
-    let data = await response.json();
+    let data = await covidApi(`latest?iso2=${iso2}&onlyCountries=true`);
 
     data = data[0];
 
@@ -49,9 +45,7 @@ async function countrySummaryTable(tableId, iso2) {
 }
 
 async function globalStatsTable(tableId) {
-    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/brief`
-    let response = await fetch(url);
-    let data = await response.json();
+    let data = await covidApi(`brief`);
 
     let html =
         `<tr>
@@ -67,9 +61,7 @@ async function globalStatsTable(tableId) {
 }
 
 async function allCountriesTable(tableId) {
-    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?onlyCountries=true`
-    let response = await fetch(url);
-    let data = await response.json();
+    let data = await covidApi(`latest?onlyCountries=true`);
 
     let html =
         `<tr>
@@ -96,9 +88,7 @@ async function allCountriesTable(tableId) {
 
 
 async function countryCalendarTable(tableId, iso2, lines = 0) {
-    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
-    let response = await fetch(url);
-    let data = await response.json();
+    let data = await covidApi(`timeseries?iso2=${iso2}&onlyCountries=true`);
 
     info = [];
 
@@ -143,9 +133,7 @@ async function countryCalendarTable(tableId, iso2, lines = 0) {
 }
 
 async function countryStatsTable(tableId, iso2) {
-    let url = `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=${iso2}&onlyCountries=true`
-    let response = await fetch(url);
-    let data = await response.json();
+    let data = await covidApi(`timeseries?iso2=${iso2}&onlyCountries=true`);
 
     let keys = Object.keys(data[0].timeseries);
     data = data[0].timeseries[keys[keys.length - 1]];
@@ -163,6 +151,14 @@ async function countryStatsTable(tableId, iso2) {
     document.getElementById(tableId).innerHTML = html;
 }
 
+async function covidApi(request) {
+    ENDPOINT_URL = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/";
+    let url = ENDPOINT_URL + request;
+    let response = await fetch(url);
+
+    return await response.json();
+}
+
 function convertDate(date) {
     let temp = date.split("/");
     for (let i = 0; i < temp.length; i++) {
@@ -171,6 +167,20 @@ function convertDate(date) {
         }
     }
     return `${temp[1]}.${temp[0]}.${temp[2]}`
+}
+
+function hideExclude(id, className, displayType) {
+    let tags = document.getElementsByClassName(className);
+
+    for (const tag in tags) {
+        if (tags.hasOwnProperty(tag)) {
+            const element = tags[tag];
+            if (element.id != id) {
+                document.getElementById(element.id).style.display = "none";
+            }
+        }
+    }
+    document.getElementById(id).style.display = displayType;
 }
 
 function addSorting(tableId) {
@@ -186,23 +196,4 @@ function addSorting(tableId) {
             .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
             .forEach(tr => table.appendChild(tr));
     }), th.style.cursor = "pointer"));
-}
-
-function hideExclude(id) {
-    let tags = document.getElementsByClassName("content");
-
-    for (const tag in tags) {
-        if (tags.hasOwnProperty(tag)) {
-            const element = tags[tag];
-            if (element.id != id) {
-                document.getElementById(element.id).style.display = "none";
-            }
-        }
-    }
-    if (id == "main") {
-        document.getElementById(id).style.display = "flex";
-    }
-    else {
-        document.getElementById(id).style.display = "block";
-    }
 }
