@@ -18,4 +18,4 @@ Take the necessary precautions.
 Take care of yourself and your loved ones.
 
 ## Go to the site
-https://bitlowsky.github.io/covid-19-info/
+https://bytehater.github.io/covid-19-info/
