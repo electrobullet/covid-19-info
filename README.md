@@ -7,7 +7,8 @@ The author is NOT RESPONSIBLE
 for information published on the resource
 and DOES NOT PROVIDE ANY QUARANTEES.
 
-All data is taken from a [public source](https://github.com/Laeyoung/COVID-19-API) via the Web API.
+All data is taken from a [public source](https://github.com/Laeyoung/COVID-19-API) via the Web API.  
+Recovered data from JHU CCSE will not be updated after March 23th. Check this [issue](https://github.com/Laeyoung/COVID-19-API/issues/16).
 
 THE SITE IS ONLY AN AGGREGATOR
 intended for displaying data
@@ -18,4 +19,4 @@ Take the necessary precautions.
 Take care of yourself and your loved ones.
 
 ## Go to the site
-https://bytehater.github.io/covid-19-info/
+https://electrobullet.github.io/covid-19-info/
