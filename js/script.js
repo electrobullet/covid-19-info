@@ -152,7 +152,7 @@ async function countryStatsTable(tableId, iso2) {
 }
 
 async function covidApi(request) {
-    ENDPOINT_URL = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/";
+    ENDPOINT_URL = "https://master-covid-19-api-laeyoung.endpoint.ainize.ai/jhu-edu/";
     let url = ENDPOINT_URL + request;
     let response = await fetch(url);
 
